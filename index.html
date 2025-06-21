@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Typing Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Antonio&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Antonio', sans-serif;
+      background: transparent;
+    }
+
+    #typewriter {
+      font-size: 4rem;
+      font-weight: 600;
+      color: black;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-bottom: 5px;
+      width: max-content;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+
+    /* Blinking cursor */
+    #typewriter::after {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: black;
+      margin-left: 5px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="typewriter"></div>
+
+  <script>
+    const texts = [
+      "Hello!",
+      "Thank you for visiting my website!",
+      "ARMAND VORSTER"
+    ];
+
+    const timings = [
+      [1750, 1000],   // Hello! (1s total, 1s fade)
+      [3750, 1000],   // Thank you... (1s total, 1s fade)
+      [2000, 0]       // Final name types in 2s, no fade
+    ];
+
+    const container = document.getElementById('typewriter');
+
+    let textIndex = 0;
+
+    function typeText(text, typingTotal, fadeDuration, callback) {
+      container.textContent = "";
+      container.classList.remove("hidden");
+
+      let charIndex = 0;
+      const typingSpeed = typingTotal / (text.length + 10);
+
+      function typeChar() {
+        if (charIndex < text.length) {
+          container.textContent += text.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, typingSpeed);
+        } else {
+          const timeUsed = typingSpeed * charIndex;
+          const remainingTime = typingTotal - timeUsed;
+
+          setTimeout(() => {
+            if (fadeDuration > 0) {
+              container.classList.add("hidden");
+              setTimeout(callback, fadeDuration);
+            } else {
+              callback();
+            }
+          }, remainingTime);
+        }
+      }
+
+      typeChar();
+    }
+
+    function startTyping() {
+      if (textIndex < texts.length) {
+        const [typingTotal, fadeDuration] = timings[textIndex];
+        typeText(texts[textIndex], typingTotal, fadeDuration, () => {
+          textIndex++;
+          startTyping();
+        });
+      }
+    }
+
+    startTyping();
+  </script>
+</body>
+</html>
+
