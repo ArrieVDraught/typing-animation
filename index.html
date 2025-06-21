@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Typing Animation</title>
-<link href="https://fonts.googleapis.com/css2?family=Antonio&display=swap" rel="stylesheet" />
-<style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Antonio', sans-serif;
-    background: white;
-  }
-  #typewriter {
-    font-size: 4rem;
-    font-weight: 600;
-    color: black;
-    border-right: 2px solid #999;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-bottom: 5px;
-    width: max-content;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Typing Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Antonio&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Antonio', sans-serif;
+      background: transparent; /* ✅ Transparent background */
+    }
+
+    #typewriter {
+      font-size: 4rem;
+      font-weight: 600;
+      color: black;
+      border-right: 2px solid #999;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-bottom: 5px;
+      width: max-content;
+    }
+  </style>
 </head>
 <body>
   <div id="typewriter"></div>
