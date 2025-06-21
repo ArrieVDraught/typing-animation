@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Typing Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Antonio&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Antonio', sans-serif;
+      background: transparent;
+    }
+
+    #typewriter {
+      font-size: 4rem;
+      font-weight: 600;
+      color: black;
+      border-right: 2px solid #999;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-bottom: 5px;
+      width: max-content;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="typewriter"></div>
+
+  <script>
+    const texts = [
+      "Hello!",
+      "Thank you for visiting my Portfolio Website!",
+      "Armand Vorster"
+    ];
+
+    const totalDuration = 5500; // total time per message (in ms)
+    const container = document.getElementById('typewriter');
+
+    function typeText(text, callback) {
+      const typingSpeed = totalDuration / (text.length + 10); // dynamic typing speed
+      container.textContent = '';
+      container.classList.remove('hidden');
+      let charIndex = 0;
+
+      function typeChar() {
+        if (charIndex < text.length) {
+          container.textContent += text.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, typingSpeed);
+        } else {
+          // Wait the remaining time, then fade out
+          const timeUsed = charIndex * typingSpeed;
+          const remainingTime = totalDuration - timeUsed;
+          setTimeout(() => {
+            container.classList.add('hidden');
+            setTimeout(callback, 500); // Wait for fade transition
+          }, remainingTime);
+        }
+      }
+
+      typeChar();
+    }
+
+    let textIndex = 0;
+    function startTypingCycle() {
+      if (textIndex < texts.length) {
+        typeText(texts[textIndex], () => {
+          textIndex++;
+          startTypingCycle();
+        });
+      }
+    }
+
+    startTypingCycle();
+  </script>
+</body>
+</html>
+
+
